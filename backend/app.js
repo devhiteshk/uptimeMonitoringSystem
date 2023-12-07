@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
 import { jwtAuthGuard } from "./middlewares/jwtAuthGuard.js";
 
 const app = express();
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", jwtAuthGuard, userRoutes);
-// app.use("/api/v1/service", jwtAuthGuard, seviceRoutes);
+app.use("/api/v1/service", jwtAuthGuard, serviceRoutes);
 
 app.use("/", (req, res) => {
   res.status(200).json({
