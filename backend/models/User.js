@@ -8,12 +8,7 @@ const User = new Schema({
   password: { type: String, required: true },
   imgUrl: { type: String, default: "" },
   verified: { type: Boolean, default: false },
-  projects: [
-    {
-      name: String,
-      service: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Service" }],
-    },
-  ],
+  projects: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Project" }],
 });
 
 export default mongoose.model("User", User);

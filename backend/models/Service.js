@@ -7,6 +7,8 @@ const Service = new Schema({
   upCount: { type: Number, default: 0 },
   downCount: { type: Number, default: 0 },
   currentStatus: { status: String, reason: String },
+  projectId: { type: mongoose.SchemaTypes.ObjectId, ref: "Project" },
+  monitorLogs: [{ type: mongoose.SchemaTypes.ObjectId, ref: "MonitorLog" }],
 });
 
 export default mongoose.model("Service", Service);
