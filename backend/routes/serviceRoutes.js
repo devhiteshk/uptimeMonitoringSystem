@@ -3,6 +3,7 @@ import {
   createProject,
   createService,
   getAllProjects,
+  getAllServices,
 } from "../controllers/serviceController.js";
 
 const router = express.Router();
@@ -10,5 +11,6 @@ const router = express.Router();
 router.get("/getAllProjects", getAllProjects);
 router.post("/createProject", createProject);
 router.post("/createService", createService);
+router.get("/getAllServices", getAllServices);
 
 export default router;

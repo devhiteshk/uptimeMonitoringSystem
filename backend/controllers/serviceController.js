@@ -9,7 +9,7 @@ export const getAllProjects = async (req, res) => {
       .select("projects")
       .populate("projects");
 
-    res.json({ succes: true, projects: projects });
+    res.json({ succes: true, user: projects });
   } catch (err) {
     console.log(err);
     return res.status(400).json({
@@ -94,6 +94,38 @@ export const createService = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Service created Successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+};
+
+export const getAllServices = async (req, res) => {
+  try {
+    const projectId = req.body.projectId;
+
+    const id = req.user.id;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "projectId is Invalid",
+      });
+    }
+
+    const services = await Project.findById(projectId)
+      .select("services")
+      .populate("services");
+
+    res.status(200).json({
+      success: true,
+      project: services,
     });
   } catch (err) {
     console.log(err);
