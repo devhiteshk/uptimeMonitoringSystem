@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import app from "./app.js";
 import config from "./config/config.js";
+import { loggService } from "./loggService/loggService.js";
 
 dotenv.config();
 
@@ -16,3 +17,5 @@ mongoose
 app.listen(config.PORT, () =>
   console.log(`Server running on port port ${config.PORT}🔥`)
 );
+
+loggService();
