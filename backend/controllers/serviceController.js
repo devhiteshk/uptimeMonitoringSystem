@@ -1,3 +1,4 @@
+import MonitorLog from "../models/MonitorLog.js";
 import Project from "../models/Project.js";
 import Service from "../models/Service.js";
 import User from "./../models/User.js";
@@ -126,6 +127,69 @@ export const getAllServices = async (req, res) => {
     res.status(200).json({
       success: true,
       project: services,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+};
+
+export const deleteService = async (req, res) => {
+  try {
+    const serviceId = req.body.serviceId;
+    const projectId = req.body.projectId;
+
+    const project = await Project.findById(projectId);
+    const service = await Service.findById(serviceId);
+
+    for (const ser of service?.monitorLogs) {
+      await MonitorLog.findByIdAndDelete(ser);
+    }
+
+    await Service.findByIdAndDelete(serviceId);
+
+    project.services = project.services.filter((id) => id != serviceId);
+
+    project.save();
+
+    res.status(200).json({
+      success: true,
+      message: "service deleted successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+};
+
+export const deleteProject = async (req, res) => {
+  try {
+    const projectId = req.body.projectId;
+    const project = await Project.findById(projectId);
+
+    for (const item of project?.services) {
+      const service = await Service.findById(item);
+
+      if (service)
+        for (const ser of service?.monitorLogs) {
+          console.log(ser);
+          await MonitorLog.findByIdAndDelete(ser);
+        }
+
+      await Service.findByIdAndDelete(item);
+    }
+
+    await Project.findByIdAndDelete(projectId);
+
+    res.status(200).json({
+      success: true,
+      message: "project deleted successfully",
     });
   } catch (err) {
     console.log(err);

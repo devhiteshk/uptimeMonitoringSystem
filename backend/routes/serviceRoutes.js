@@ -2,6 +2,8 @@ import express from "express";
 import {
   createProject,
   createService,
+  deleteProject,
+  deleteService,
   getAllProjects,
   getAllServices,
 } from "../controllers/serviceController.js";
@@ -12,5 +14,7 @@ router.get("/getAllProjects", getAllProjects);
 router.post("/createProject", createProject);
 router.post("/createService", createService);
 router.get("/getAllServices", getAllServices);
+router.delete("/deleteService", deleteService);
+router.delete("/deleteProject", deleteProject);
 
 export default router;

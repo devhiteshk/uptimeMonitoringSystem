@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const MonitorLog = new Schema({
   hitTime: { type: Date },
   responseTime: { type: String },
-  downTime: { type: Date },
-  downReason: { type: String },
+  status: { type:String }
 });
 
-export default mongoose.Model("MonitorLog", MonitorLog);
+export default mongoose.model("MonitorLog", MonitorLog);
