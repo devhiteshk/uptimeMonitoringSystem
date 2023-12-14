@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Button,
-  Divider,
   InputAdornment,
   InputLabel,
   TextField,
@@ -20,7 +19,11 @@ import { Login, checkLoggedIn } from "../redux/apis/userApis";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
 import { LogoutUSER, USER } from "../redux/reducers/userReducer";
-import { DashboardCustomizeTwoTone, HomeTwoTone } from "@mui/icons-material";
+import {
+  Close,
+  DashboardCustomizeTwoTone,
+  HomeTwoTone,
+} from "@mui/icons-material";
 
 export interface props {
   children?: React.ReactNode;
@@ -352,18 +355,38 @@ export function LoginDialog() {
           <Box
             sx={{
               py: 4,
-              px: { xs: 1, md: 2 },
+              px: { xs: 1, md: 3 },
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "column",
               gap: 2,
+              position: "relative",
             }}
           >
-            <Box>
+            <Box
+              onClick={handleClose}
+              sx={{ position: "absolute", top: 5, right: 5, cursor: "pointer" }}
+            >
+              <Close />
+            </Box>
+            <Box sx={{ textAlign: "center" }}>
               <Typography
                 fontWeight="bold"
                 sx={{
+                  fontSize: {
+                    xs: 12,
+                    md: 20,
+                  },
+                }}
+                color={"#ef6c00"}
+              >
+                Welcome to UMS
+              </Typography>
+              <Typography
+                fontWeight="bold"
+                sx={{
+                  mt: 3,
                   fontSize: {
                     xs: 12,
                     md: 16,
@@ -465,14 +488,14 @@ export function LoginDialog() {
                   Sign In
                 </Button>
               </Box>
-              <Box>
+              {/* <Box>
                 <Divider
                   sx={{
                     width: "100%",
                     marginTop: "20px",
                   }}
                 ></Divider>
-              </Box>
+              </Box> */}
               {/* <Box
                     justifyContent="center"
                     sx={{

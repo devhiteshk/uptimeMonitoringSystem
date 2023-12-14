@@ -1,12 +1,13 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { Toaster } from "react-hot-toast";
-import { Add, ArrowBack } from "@mui/icons-material";
+import { Box, Grid, Typography } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 import ProjectCard from "./ProjectCard";
 import { useEffect, useState } from "react";
 import { getAllProjects } from "../../redux/apis/userApis";
 import { useNavigate } from "react-router-dom";
+import { CreateProjectDialog } from "../services/CreateProject";
 
 function Dashboard() {
+  const [update, setUpdate] = useState<number>(0);
   const [Projects, setProjects] = useState<
     [
       {
@@ -22,13 +23,12 @@ function Dashboard() {
     getAllProjects()
       .then((res) => setProjects(res?.data?.user?.projects))
       .catch((err) => console.log(err));
-  }, []);
+  }, [update]);
 
   const navigate = useNavigate();
 
   return (
     <div>
-      <Toaster position="top-center" reverseOrder={false} />
       <Box
         onClick={() => navigate(-1)}
         mt={4}
@@ -61,15 +61,7 @@ function Dashboard() {
           </Typography>
         </Box>
         <Box>
-          <Button
-            sx={{
-              color: "#f06292",
-              ":hover": { backgroundColor: "hsl(270, 40%, 16%)" },
-            }}
-            startIcon={<Add />}
-          >
-            Create Project
-          </Button>
+          <CreateProjectDialog update={update} setUpdate={setUpdate} />
         </Box>
       </Box>
 

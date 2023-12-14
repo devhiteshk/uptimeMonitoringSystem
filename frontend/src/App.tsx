@@ -31,16 +31,7 @@ function App() {
             </AuthProvider>
           }
         />
-        <Route
-          path="/service"
-          element={
-            <AuthProvider>
-              <Layout>
-                <Dashboard />
-              </Layout>
-            </AuthProvider>
-          }
-        />
+
         <Route
           path="/"
           element={

@@ -1,13 +1,14 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { Toaster } from "react-hot-toast";
-import { Add, ArrowBack } from "@mui/icons-material";
+import { Box, Grid, Typography } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { getAllServices } from "../../redux/apis/userApis";
 import ServiceCard from "./ServiceCard";
 import { useNavigate } from "react-router-dom";
+import { CreateServiceDialog } from "../services/CreateService";
 
 function ProjectPage() {
   const [ProjectName, setProjectName] = useState<string>("");
+  const [update, setUpdate] = useState<number>(0);
   const [AllServices, setAllServices] = useState<
     [
       {
@@ -41,14 +42,12 @@ function ProjectPage() {
         setProjectName(res?.data?.project?.name);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [update]);
 
   const navigate = useNavigate();
 
   return (
     <div>
-      <Toaster position="top-center" reverseOrder={false} />
-
       <Box
         onClick={() => navigate(-1)}
         mt={4}
@@ -82,15 +81,7 @@ function ProjectPage() {
           </Typography>
         </Box>
         <Box>
-          <Button
-            sx={{
-              color: "#f06292",
-              ":hover": { backgroundColor: "hsl(270, 40%, 16%)" },
-            }}
-            startIcon={<Add />}
-          >
-            Create Service
-          </Button>
+          <CreateServiceDialog update={update} setUpdate={setUpdate} />
         </Box>
       </Box>
 
