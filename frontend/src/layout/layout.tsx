@@ -163,6 +163,7 @@ const BasicPopover = () => {
     dispatch(LogoutUSER());
     localStorage.clear();
     navigate("/");
+    window.location.reload();
   };
 
   return (
