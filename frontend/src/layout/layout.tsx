@@ -156,6 +156,7 @@ const BasicPopover = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    navigate("/");
     dispatch(LogoutUSER());
     localStorage.clear();
     navigate("/");

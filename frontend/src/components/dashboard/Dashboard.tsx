@@ -65,7 +65,7 @@ function Dashboard() {
       >
         {Projects
           ? Projects.map((project) => (
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid key={project?._id} item xs={12} sm={6} md={3}>
                 <ProjectCard
                   id={project._id}
                   name={project?.name}

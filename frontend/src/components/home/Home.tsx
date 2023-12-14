@@ -30,8 +30,28 @@ function Home() {
             <span>Uptime</span> <br />
             <span style={{ color: "yellow" }}>Monitoring</span>
             <br />
-            <span style={{ position: "relative" }}>
-              System
+          </Typography>
+          <Box
+            sx={{
+              textAlign: { xs: "center", md: "left" },
+              width: "100%",
+              display: "flex",
+              justifyContent: { xs: "center", md: "flex-start" },
+            }}
+          >
+            <Box
+              sx={{
+                width: "fit-content",
+                position: "relative",
+              }}
+            >
+              <Typography
+                sx={{ fontSize: { md: 70, sm: 50, xs: 30 } }}
+                fontWeight={"bold"}
+                color="#fff"
+              >
+                System
+              </Typography>
               <Box
                 sx={{
                   width: "40px",
@@ -46,8 +66,8 @@ function Home() {
                 <span className="circle2"></span>
                 <span className="circle3"></span>
               </Box>
-            </span>
-          </Typography>
+            </Box>
+          </Box>
           {/* <Box mt={4}>
             <Button
               sx={{
