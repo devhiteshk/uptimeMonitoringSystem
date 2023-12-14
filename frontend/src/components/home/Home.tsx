@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import uptimeSVG from "./../../assets/uptime.svg";
 function Home() {
   return (
@@ -48,7 +48,7 @@ function Home() {
               </Box>
             </span>
           </Typography>
-          <Box mt={4}>
+          {/* <Box mt={4}>
             <Button
               sx={{
                 backgroundColor: "hsl(250, 24%, 9%)",
@@ -61,9 +61,9 @@ function Home() {
               }}
               variant="contained"
             >
-              Sign up
+              View DashBoard
             </Button>
-          </Box>
+          </Box> */}
         </Box>
 
         <Box

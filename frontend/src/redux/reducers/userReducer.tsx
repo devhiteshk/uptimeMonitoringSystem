@@ -34,17 +34,20 @@ export const counterSlice = createSlice({
     },
 
     LogoutUSER: (state: UserState) => {
-      state.email = "";
-      state.firstName = "";
-      state.lastName = "";
-      state.token = "";
-      state.imgUrl = "";
-      state.id = "";
+      return {
+        ...state,
+        email: "",
+        firstName: "",
+        lastName: "",
+        token: "",
+        imgUrl: "",
+        id: "",
+      };
     },
   },
 });
 
-export const { USER } = counterSlice.actions;
+export const { USER, LogoutUSER } = counterSlice.actions;
 
 // selector for getting the state
 export const selectUser = (state: { user: UserState }) => state.user;

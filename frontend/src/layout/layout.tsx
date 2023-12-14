@@ -18,7 +18,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Login, checkLoggedIn } from "../redux/apis/userApis";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
-import { USER } from "../redux/reducers/userReducer";
+import { LogoutUSER, USER } from "../redux/reducers/userReducer";
+import { DashboardCustomizeTwoTone, HomeTwoTone } from "@mui/icons-material";
 
 export interface props {
   children?: React.ReactNode;
@@ -26,6 +27,8 @@ export interface props {
 
 function Layout({ children }: props) {
   const [loggedIn, setloggedIn] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     checkLoggedIn().then((res) => {
@@ -81,7 +84,44 @@ function Layout({ children }: props) {
               UMS
             </Typography>
           </Box>
-          <Box>{!loggedIn ? <LoginDialog /> : <BasicPopover />}</Box>
+          <Box>
+            {loggedIn ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: { md: 2, xs: 2 },
+                }}
+              >
+                <HomeTwoTone
+                  onClick={() => navigate("/")}
+                  sx={{
+                    color: "#fff",
+                    cursor: "pointer",
+                    ":hover": {
+                      color: "cyan",
+                      transition: "0.5s ease-in-out",
+                    },
+                  }}
+                />
+
+                <DashboardCustomizeTwoTone
+                  onClick={() => navigate("/dashboard")}
+                  sx={{
+                    color: "#fff",
+                    cursor: "pointer",
+                    ":hover": {
+                      color: "cyan",
+                      transition: "0.5s ease-in-out",
+                    },
+                  }}
+                />
+                <BasicPopover />
+              </Box>
+            ) : (
+              <LoginDialog />
+            )}
+          </Box>
         </Box>
         <Box>{children}</Box>
       </Box>
@@ -111,7 +151,7 @@ const BasicPopover = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch({ type: "LogoutUSER" });
+    dispatch(LogoutUSER());
     localStorage.clear();
     navigate("/");
   };
@@ -130,10 +170,11 @@ const BasicPopover = () => {
         >
           <Avatar
             sx={{
-              width: 35,
-              height: 35,
+              width: 25,
+              height: 25,
               color: "#000",
-              fontWeight: "500",
+              fontSize: 15,
+              fontWeight: "bold",
               backgroundColor: "#cfd8dc",
             }}
           >
