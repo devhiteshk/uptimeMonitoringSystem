@@ -6,7 +6,7 @@ const Service = new Schema({
   url: { type: String },
   upCount: { type: Number, default: 0 },
   downCount: { type: Number, default: 0 },
-  currentStatus: { status: String, reason: String },
+  currentStatus: { type: String },
   projectId: { type: mongoose.SchemaTypes.ObjectId, ref: "Project" },
   monitorLogs: [{ type: mongoose.SchemaTypes.ObjectId, ref: "MonitorLog" }],
 });

@@ -121,6 +121,7 @@ export const getAllServices = async (req, res) => {
     }
 
     const services = await Project.findById(projectId)
+      .select("name")
       .select("services")
       .populate("services");
 

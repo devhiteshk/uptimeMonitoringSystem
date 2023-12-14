@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/getAllProjects", getAllProjects);
 router.post("/createProject", createProject);
 router.post("/createService", createService);
-router.get("/getAllServices", getAllServices);
+router.post("/getAllServices", getAllServices);
 router.delete("/deleteService", deleteService);
 router.delete("/deleteProject", deleteProject);
 

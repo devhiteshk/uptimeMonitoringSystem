@@ -28,8 +28,15 @@ export const loggService = async () => {
       newLog.save();
 
       SERVICE?.monitorLogs?.push(newLog._id);
-      SERVICE.save();
 
+      if (SERVICE) {
+        SERVICE.currentStatus = status;
+        SERVICE.upCount =
+          status === 200 ? SERVICE.upCount + 1 : SERVICE.upCount;
+        SERVICE.downCount =
+          status !== 200 ? SERVICE.downCount + 1 : SERVICE.downCount;
+      }
+      SERVICE.save();
       console.log(
         `Log created successfully at ${new Date().toLocaleString()} for url: ${
           SERVICE.url
