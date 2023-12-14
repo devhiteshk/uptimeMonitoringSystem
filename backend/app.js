@@ -3,21 +3,19 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import { jwtAuthGuard } from "./middlewares/jwtAuthGuard.js";
+import cors from "cors";
 
 const app = express();
+// CORS POLICY
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000"],
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// CORS POLICY
-// app.use(
-//     cors({
-//       credentials: true,
-//       origin: [
-//         "https://country-state-city-api-v1.vercel.app",
-//         "http://localhost:5173",
-//       ],
-//     })
-//   );
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", jwtAuthGuard, userRoutes);

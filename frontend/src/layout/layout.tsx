@@ -15,6 +15,10 @@ import Popover from "@mui/material/Popover";
 import Dialog from "@mui/material/Dialog";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Login, checkLoggedIn } from "../redux/apis/userApis";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { USER } from "../redux/reducers/userReducer";
 
 export interface props {
   children?: React.ReactNode;
@@ -24,7 +28,11 @@ function Layout({ children }: props) {
   const [loggedIn, setloggedIn] = useState(false);
 
   useEffect(() => {
-    setloggedIn(false);
+    checkLoggedIn().then((res) => {
+      if (res.status === 200) {
+        setloggedIn(true);
+      }
+    });
   }, []);
 
   return (
@@ -98,6 +106,15 @@ const BasicPopover = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch({ type: "LogoutUSER" });
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <>
@@ -211,6 +228,7 @@ const BasicPopover = () => {
                   alignItems: "center",
                   gap: 2,
                 }}
+                onClick={handleLogout}
               >
                 <MdLogout size={20} fill={"#ef9a9a"} />
                 <Typography variant="caption" color={"#ef5350"}>
@@ -242,6 +260,18 @@ export function LoginDialog() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = async () => {
+    await Login(email, password).then((res) => {
+      if (res.status === 200) {
+        dispatch(USER({ data: res.data.data, token: res.data.token }));
+        localStorage.setItem("token", res?.data?.token);
+        navigate("/dashboard");
+      }
+    });
+  };
 
   return (
     <React.Fragment>
@@ -308,6 +338,7 @@ export function LoginDialog() {
               </InputLabel>
               <TextField
                 hiddenLabel
+                value={email}
                 autoComplete="off"
                 type="email"
                 typeof="email"
@@ -339,6 +370,7 @@ export function LoginDialog() {
               <TextField
                 hiddenLabel
                 fullWidth
+                value={password}
                 autoComplete="off"
                 size="small"
                 id="outlined-basic"
@@ -375,7 +407,7 @@ export function LoginDialog() {
                 <Button
                   fullWidth
                   size="small"
-                  // onClick={handleSubmit}
+                  onClick={handleSubmit}
                   sx={{
                     backgroundColor: "#424242",
                     ":hover": { backgroundColor: "#000" },

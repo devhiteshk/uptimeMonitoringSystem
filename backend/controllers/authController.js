@@ -47,7 +47,7 @@ export const signUp = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(400).json({
-      succes: false,
+      success: false,
       message: "something went wrong",
     });
   }
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
 
     if (!email || !password) {
       return res.status(401).json({
-        succes: false,
+        success: false,
         message: "Invalid Credentials",
       });
     }
@@ -87,19 +87,37 @@ export const login = async (req, res) => {
           lastName: user.lastName,
           email: user.email,
           imgUrl: user.imgUrl,
+          id: user._id,
         },
         token: token,
       });
     }
 
     return res.status(401).json({
-      status: false,
+      success: false,
       message: "Invalid Credentials",
     });
   } catch (err) {
     console.log(err);
     return res.status(400).json({
-      succes: false,
+      success: false,
+      message: "something went wrong",
+    });
+  }
+};
+
+export const checkLogin = (req, res) => {
+  try {
+    if (req.user) {
+      return res.status(200).json({
+        success: true,
+        message: "user is logged In",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({
+      success: false,
       message: "something went wrong",
     });
   }

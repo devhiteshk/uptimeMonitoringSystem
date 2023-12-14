@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Layout from "./layout/layout";
 import Home from "./components/home/Home";
 import Dashboard from "./components/dashboard/Dashboard";
+import { AuthProvider } from "./auth/AuthContext";
 
 function App() {
   return (
@@ -12,9 +13,11 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <Layout>
-              <Dashboard />
-            </Layout>
+            <AuthProvider>
+              <Layout>
+                <Dashboard />
+              </Layout>
+            </AuthProvider>
           }
         />
         <Route
