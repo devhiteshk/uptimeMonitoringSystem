@@ -3,10 +3,33 @@ import { Toaster } from "react-hot-toast";
 import { Add } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { getAllServices } from "../../redux/apis/userApis";
+import ServiceCard from "./ServiceCard";
 
 function ProjectPage() {
-  const [AllServices, setAllServices] = useState([]);
-  const [ProjectName, setProjectName] = useState("");
+  const [ProjectName, setProjectName] = useState<string>("");
+  const [AllServices, setAllServices] = useState<
+    [
+      {
+        _id: string;
+        serviceName: string;
+        url: string;
+        upCount: number;
+        downCount: number;
+        monitorLogs: [""];
+        currentStatus: number;
+      }
+    ]
+  >([
+    {
+      _id: "",
+      serviceName: "",
+      url: "",
+      upCount: 0,
+      downCount: 0,
+      monitorLogs: [""],
+      currentStatus: 0,
+    },
+  ]);
 
   useEffect(() => {
     const id = location.pathname.split("/")[2];
@@ -18,8 +41,6 @@ function ProjectPage() {
       })
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(AllServices);
 
   return (
     <div>
@@ -61,37 +82,21 @@ function ProjectPage() {
         columnSpacing={3}
         rowSpacing={3}
       >
-        <Grid item xs={12} sm={6} md={3}>
-          <Box
-            // onClick={() => navigate(`/project/${props?.id}`)}
-            sx={{
-              backgroundColor: "hsl(246, 11%, 22%)",
-              p: 4,
-              cursor: "pointer",
-              borderRadius: 2,
-              ":hover": { backgroundColor: "hsl(246, 11%, 28%)" },
-            }}
-          >
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <Typography
-                variant="body2"
-                fontWeight={"bold"}
-                letterSpacing={1}
-                color={"#fff"}
-              >
-                Name
-              </Typography>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="body2" color={"#f06292"}>
-                  Services
-                </Typography>
-                <Typography variant="body2" color={"#f06292"}>
-                  status
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-        </Grid>
+        {AllServices
+          ? AllServices.map((service) => (
+              <Grid item xs={12} sm={6} md={4}>
+                <ServiceCard
+                  serviceName={service?.serviceName}
+                  url={service?.url}
+                  currentStatus={service?.currentStatus}
+                  upCount={service?.upCount}
+                  downCount={service?.downCount}
+                  id={service?._id}
+                  monitorLogs={service?.monitorLogs}
+                />
+              </Grid>
+            ))
+          : ""}
       </Grid>
     </div>
   );

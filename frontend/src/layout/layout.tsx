@@ -6,6 +6,7 @@ import {
   InputAdornment,
   InputLabel,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -93,29 +94,33 @@ function Layout({ children }: props) {
                   gap: { md: 2, xs: 2 },
                 }}
               >
-                <HomeTwoTone
-                  onClick={() => navigate("/")}
-                  sx={{
-                    color: "#fff",
-                    cursor: "pointer",
-                    ":hover": {
-                      color: "cyan",
-                      transition: "0.5s ease-in-out",
-                    },
-                  }}
-                />
+                <Tooltip title="Home">
+                  <HomeTwoTone
+                    onClick={() => navigate("/")}
+                    sx={{
+                      color: "#fff",
+                      cursor: "pointer",
+                      ":hover": {
+                        color: "cyan",
+                        transition: "0.5s ease-in-out",
+                      },
+                    }}
+                  />
+                </Tooltip>
 
-                <DashboardCustomizeTwoTone
-                  onClick={() => navigate("/dashboard")}
-                  sx={{
-                    color: "#fff",
-                    cursor: "pointer",
-                    ":hover": {
-                      color: "cyan",
-                      transition: "0.5s ease-in-out",
-                    },
-                  }}
-                />
+                <Tooltip title="Dashboard">
+                  <DashboardCustomizeTwoTone
+                    onClick={() => navigate("/dashboard")}
+                    sx={{
+                      color: "#fff",
+                      cursor: "pointer",
+                      ":hover": {
+                        color: "cyan",
+                        transition: "0.5s ease-in-out",
+                      },
+                    }}
+                  />
+                </Tooltip>
                 <BasicPopover />
               </Box>
             ) : (

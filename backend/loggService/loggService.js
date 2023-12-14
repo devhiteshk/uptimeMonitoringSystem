@@ -32,9 +32,9 @@ export const loggService = async () => {
       if (SERVICE) {
         SERVICE.currentStatus = status;
         SERVICE.upCount =
-          status === 200 ? SERVICE.upCount + 1 : SERVICE.upCount;
+          status >= 200 && status < 300 ? SERVICE.upCount + 1 : SERVICE.upCount;
         SERVICE.downCount =
-          status !== 200 ? SERVICE.downCount + 1 : SERVICE.downCount;
+          status >= 400 ? SERVICE.downCount + 1 : SERVICE.downCount;
       }
       SERVICE.save();
       console.log(
