@@ -1,9 +1,10 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { Toaster } from "react-hot-toast";
-import { Add } from "@mui/icons-material";
+import { Add, ArrowBack } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { getAllServices } from "../../redux/apis/userApis";
 import ServiceCard from "./ServiceCard";
+import { useNavigate } from "react-router-dom";
 
 function ProjectPage() {
   const [ProjectName, setProjectName] = useState<string>("");
@@ -42,16 +43,34 @@ function ProjectPage() {
       .catch((err) => console.log(err));
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
+
+      <Box
+        onClick={() => navigate(-1)}
+        mt={4}
+        sx={{
+          cursor: "pointer",
+          backgroundColor: "hsl(270, 55%, 23%)",
+          width: "fit-content",
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          p: 0.5,
+        }}
+      >
+        <ArrowBack sx={{ fontSize: 25, color: "#fff" }} />
+      </Box>
 
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          mt: 10,
+          mt: 4,
           p: 2,
           border: "1px solid hsl(270, 55%, 43%)",
           borderRadius: 2,
@@ -76,7 +95,7 @@ function ProjectPage() {
       </Box>
 
       <Grid
-        sx={{ mt: 5 }}
+        sx={{ mt: 2 }}
         container
         columns={12}
         columnSpacing={3}
