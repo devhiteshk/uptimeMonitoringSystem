@@ -7,7 +7,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import { AuthProvider } from "./auth/AuthContext";
 import ProjectPage from "./components/dashboard/ProjectPage";
 import ServicePage from "./components/dashboard/ServicePage";
-import Settings from "./components/settings/settings";
+import Settings from "./components/settings/SettingPage";
 
 function App() {
   return (
