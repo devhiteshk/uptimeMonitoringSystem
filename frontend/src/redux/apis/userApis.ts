@@ -107,3 +107,33 @@ export const getServiceById = async (id: string) => {
     return Promise.resolve({ status: 401, data: error });
   }
 };
+
+export const deleteProject = async (projectId: string) => {
+  try {
+    const temp = axios.delete(
+      `${BASE_URL}/service/deleteProject/${projectId}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    const res = await temp;
+    return Promise.resolve({ status: 200, data: res.data });
+  } catch (error) {
+    return Promise.resolve({ status: 401, data: error });
+  }
+};
+
+export const deleteService = async (serviceId: string, projectId: string) => {
+  try {
+    const temp = axios.delete(
+      `${BASE_URL}/service/deleteService/${serviceId}/${projectId}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    const res = await temp;
+    return Promise.resolve({ status: 200, data: res.data });
+  } catch (error) {
+    return Promise.resolve({ status: 401, data: error });
+  }
+};

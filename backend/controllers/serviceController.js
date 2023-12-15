@@ -128,7 +128,7 @@ export const getAllServices = async (req, res) => {
       .select("services")
       .populate("services");
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       project: services,
     });
@@ -143,8 +143,8 @@ export const getAllServices = async (req, res) => {
 
 export const deleteService = async (req, res) => {
   try {
-    const serviceId = req.body.serviceId;
-    const projectId = req.body.projectId;
+    const serviceId = req.params.serviceId;
+    const projectId = req.params.projectId;
 
     const project = await Project.findById(projectId);
     const service = await Service.findById(serviceId);
@@ -174,10 +174,11 @@ export const deleteService = async (req, res) => {
 
 export const deleteProject = async (req, res) => {
   try {
-    const projectId = req.body.projectId;
+    const projectId = req.params.projectId;
+    const userId = req.user.id;
     const project = await Project.findById(projectId);
 
-    for (const item of project?.services) {
+    for (const item of project?.services || []) {
       const service = await Service.findById(item);
 
       if (service)
@@ -191,7 +192,11 @@ export const deleteProject = async (req, res) => {
 
     await Project.findByIdAndDelete(projectId);
 
-    res.status(200).json({
+    const user = await User.findById(userId);
+    user.projects = user.projects.filter((id) => id != projectId);
+    await user.save();
+
+    return res.status(200).json({
       success: true,
       message: "project deleted successfully",
     });
@@ -209,9 +214,10 @@ export const getServiceById = async (req, res) => {
     const serviceId = req.params.id;
 
     const service = await Service.findById(serviceId)
-      .select("monitorLogs")
+      .select("monitorLogs projectId")
       .select("serviceName url upCount downCount currentStatus")
-      .populate("monitorLogs");
+      .populate("monitorLogs")
+      .populate("projectId");
 
     res.status(200).json({
       success: true,

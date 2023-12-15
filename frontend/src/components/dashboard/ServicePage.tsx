@@ -6,6 +6,7 @@ import { getServiceById } from "../../redux/apis/userApis";
 import { Link } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 import { Stats } from "./charts/MainStats";
+import { DeleteDialog } from "./ProjectPage";
 
 function ServicePage() {
   const [serviceData, setServiceData] = useState<{
@@ -15,6 +16,10 @@ function ServicePage() {
     serviceName: string;
     url: string;
     _id: string;
+    projectId: {
+      name: string;
+      _id: string;
+    };
     monitorLogs: [
       {
         _id: string;
@@ -30,6 +35,10 @@ function ServicePage() {
     serviceName: "",
     url: "",
     _id: "",
+    projectId: {
+      name: "",
+      _id: "",
+    },
     monitorLogs: [
       {
         _id: "",
@@ -89,28 +98,37 @@ function ServicePage() {
         </Box>
       ) : (
         <Box mt={4}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              width: "fit-content",
-              gap: 1,
-              flexDirection: "column",
-            }}
-          >
-            <Typography variant="body1" color="#fff">
-              {serviceData?.serviceName}
-            </Typography>
-            <Typography variant="body2" color="#f06292">
-              <span style={{ color: "#fff" }}>URL {`-> `}</span>
-              <Link
-                style={{ textDecoration: "none", color: "#f06292" }}
-                to={serviceData?.url}
-                target="_blank"
-              >
-                {serviceData?.url}
-              </Link>
-            </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                width: "fit-content",
+                gap: 1,
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="body1" color="#fff">
+                {serviceData?.serviceName}
+              </Typography>
+              <Typography variant="body2" color="#f06292">
+                <span style={{ color: "#fff" }}>URL {`-> `}</span>
+                <Link
+                  style={{ textDecoration: "none", color: "#f06292" }}
+                  to={serviceData?.url}
+                  target="_blank"
+                >
+                  {serviceData?.url}
+                </Link>
+              </Typography>
+            </Box>
+            <DeleteDialog
+              type={"DELSER"}
+              projectId={serviceData?.projectId?._id}
+              serviceId={serviceData?._id}
+              projectName={""}
+              serviceName={serviceData?.serviceName}
+            />
           </Box>
           <Box
             sx={{

@@ -41,7 +41,13 @@ function ProjectCard(props: ProjectInterface) {
           />
         </Box>
       ) : (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
           <Typography
             variant="body2"
             fontWeight={"bold"}

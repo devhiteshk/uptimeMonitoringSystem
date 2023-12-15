@@ -16,7 +16,7 @@ router.post("/createProject", createProject);
 router.post("/createService", createService);
 router.post("/getAllServices", getAllServices);
 router.get("/getService/:id", getServiceById);
-router.delete("/deleteService", deleteService);
-router.delete("/deleteProject", deleteProject);
+router.delete("/deleteService/:serviceId/:projectId", deleteService);
+router.delete("/deleteProject/:projectId", deleteProject);
 
 export default router;
