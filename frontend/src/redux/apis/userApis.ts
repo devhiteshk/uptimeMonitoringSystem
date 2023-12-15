@@ -95,3 +95,15 @@ export const createService = async (
     return Promise.resolve({ status: 401, data: error });
   }
 };
+
+export const getServiceById = async (id: string) => {
+  try {
+    const temp = axios.get(`${BASE_URL}/service/getService/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    const res = await temp;
+    return Promise.resolve({ status: 200, data: res.data });
+  } catch (error) {
+    return Promise.resolve({ status: 401, data: error });
+  }
+};

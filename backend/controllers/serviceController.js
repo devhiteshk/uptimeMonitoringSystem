@@ -49,8 +49,8 @@ export const createProject = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(200).json({
-      success: false,
+    return res.status(400).json({
+      succes: false,
       message: "something went wrong",
     });
   }
@@ -101,8 +101,8 @@ export const createService = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(200).json({
-      success: false,
+    return res.status(400).json({
+      succes: false,
       message: "something went wrong",
     });
   }
@@ -134,8 +134,8 @@ export const getAllServices = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(200).json({
-      success: false,
+    return res.status(400).json({
+      succes: false,
       message: "something went wrong",
     });
   }
@@ -165,8 +165,8 @@ export const deleteService = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(200).json({
-      success: false,
+    return res.status(400).json({
+      succes: false,
       message: "something went wrong",
     });
   }
@@ -197,8 +197,30 @@ export const deleteProject = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(200).json({
-      success: false,
+    return res.status(400).json({
+      succes: false,
+      message: "something went wrong",
+    });
+  }
+};
+
+export const getServiceById = async (req, res) => {
+  try {
+    const serviceId = req.params.id;
+
+    const service = await Service.findById(serviceId)
+      .select("monitorLogs")
+      .select("serviceName url upCount downCount currentStatus")
+      .populate("monitorLogs");
+
+    res.status(200).json({
+      success: true,
+      data: service,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      succes: false,
       message: "something went wrong",
     });
   }

@@ -74,3 +74,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 20px;
   border: 3px solid rgb(120, 57, 129);
 }
+
+.lineChart {
+  height: 100px !important;
+}

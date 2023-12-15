@@ -94,7 +94,9 @@ export const initializeService = async (SERVICE) => {
       service.upCount =
         status >= 200 && status < 300 ? service.upCount + 1 : service.upCount;
       service.downCount =
-        status >= 400 ? service.downCount + 1 : service.downCount;
+        (status >= 0 && status < 200) || status >= 300
+          ? service.downCount + 1
+          : service.downCount;
     }
     service.save();
     console.log(
