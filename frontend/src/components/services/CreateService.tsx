@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import { createProject } from "../../redux/apis/userApis";
+import { createService } from "../../redux/apis/userApis";
 
 function isUrlValid(string: string) {
   try {
@@ -21,6 +21,7 @@ function isUrlValid(string: string) {
 interface CreateProjectInterface {
   update: number;
   setUpdate: (name: number) => void;
+  projectId: string;
 }
 
 export function CreateServiceDialog(props: CreateProjectInterface) {
@@ -38,7 +39,7 @@ export function CreateServiceDialog(props: CreateProjectInterface) {
 
   const handleCreateService = () => {
     if (isUrlValid(URL)) {
-      createProject(serviceName).then((res) => {
+      createService(serviceName, URL, props?.projectId).then((res) => {
         if (res.status === 200) {
           props?.setUpdate(props?.update + 1);
           handleClose();

@@ -9,6 +9,8 @@ import { CreateServiceDialog } from "../services/CreateService";
 function ProjectPage() {
   const [ProjectName, setProjectName] = useState<string>("");
   const [update, setUpdate] = useState<number>(0);
+  const [projectId, setProjectId] = useState<string>("");
+
   const [AllServices, setAllServices] = useState<
     [
       {
@@ -35,7 +37,7 @@ function ProjectPage() {
 
   useEffect(() => {
     const id = location.pathname.split("/")[2];
-
+    setProjectId(id);
     getAllServices(id)
       .then((res) => {
         setAllServices(res?.data?.project?.services);
@@ -81,7 +83,11 @@ function ProjectPage() {
           </Typography>
         </Box>
         <Box>
-          <CreateServiceDialog update={update} setUpdate={setUpdate} />
+          <CreateServiceDialog
+            projectId={projectId}
+            update={update}
+            setUpdate={setUpdate}
+          />
         </Box>
       </Box>
 
@@ -103,6 +109,7 @@ function ProjectPage() {
                   downCount={service?.downCount}
                   id={service?._id}
                   monitorLogs={service?.monitorLogs}
+                  projectId={projectId}
                 />
               </Grid>
             ))

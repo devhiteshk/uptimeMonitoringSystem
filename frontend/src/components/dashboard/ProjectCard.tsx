@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { ThreeCircles } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 
 interface ProjectInterface {
@@ -20,24 +21,45 @@ function ProjectCard(props: ProjectInterface) {
         ":hover": { backgroundColor: "hsl(246, 11%, 28%)" },
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <Typography
-          variant="body2"
-          fontWeight={"bold"}
-          letterSpacing={1}
-          color={"#fff"}
+      {props.id.length < 10 ? (
+        <Box
+          width={"100%"}
+          height={"100%"}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          {props?.name}
-        </Typography>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="body2" color={"#f06292"}>
-            Services
-          </Typography>
-          <Typography variant="body2" color={"#f06292"}>
-            {props?.services?.length}
-          </Typography>
+          <ThreeCircles
+            height="20"
+            width="20"
+            color="cyan"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
         </Box>
-      </Box>
+      ) : (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Typography
+            variant="body2"
+            fontWeight={"bold"}
+            letterSpacing={1}
+            color={"#fff"}
+          >
+            {props?.name}
+          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="body2" color={"#f06292"}>
+              Services
+            </Typography>
+            <Typography variant="body2" color={"#f06292"}>
+              {props?.services?.length}
+            </Typography>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

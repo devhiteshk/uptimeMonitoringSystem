@@ -40,3 +40,37 @@
     transform: scale(1);
   }
 }
+
+body {
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 2.5px; /* width of the entire scrollbar */
+}
+body::-webkit-scrollbar-track {
+  background: white; /* color of the tracking area */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(120, 57, 129); /* color of the scroll thumb */
+  border-radius: 50px; /* roundness of the scroll thumb */
+  border: 3px solid rgb(120, 57, 129); /* creates padding around scroll thumb */
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(120, 57, 129) rgb(120, 57, 129);
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 2px;
+}
+*::-webkit-scrollbar-track {
+  background: rgb(120, 57, 129);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(120, 57, 129);
+  border-radius: 20px;
+  border: 3px solid rgb(120, 57, 129);
+}

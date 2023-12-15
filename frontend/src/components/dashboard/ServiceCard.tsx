@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { ThreeCircles } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 interface ServiceInterface {
   currentStatus: number;
@@ -9,13 +10,15 @@ interface ServiceInterface {
   upCount: number;
   downCount: number;
   id: string;
+  projectId: string;
 }
 
 function ServiceCard(props: ServiceInterface) {
+  const navigate = useNavigate();
   return (
     <div>
       <Box
-        // onClick={() => navigate(`/project/${props?.id}`)}
+        onClick={() => navigate(`/service/${props?.id}`)}
         sx={{
           backgroundColor: "hsl(246, 11%, 22%)",
           p: 4,

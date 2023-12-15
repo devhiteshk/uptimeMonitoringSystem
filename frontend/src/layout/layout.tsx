@@ -60,6 +60,7 @@ function Layout({ children }: props) {
           width: "100%",
           height: "100%",
           pt: 3,
+          pb: 15,
           px: { md: 5, xs: 1 },
         }}
       >

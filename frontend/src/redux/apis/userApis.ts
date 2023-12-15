@@ -75,3 +75,23 @@ export const createProject = async (projectName: string) => {
     return Promise.resolve({ status: 401, data: error });
   }
 };
+
+export const createService = async (
+  serviceName: string,
+  url: string,
+  projectId: string
+) => {
+  try {
+    const temp = axios.post(
+      `${BASE_URL}/service/createService`,
+      { serviceName: serviceName, url: url, projectId: projectId },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    );
+    const res = await temp;
+    return Promise.resolve({ status: 200, data: res.data });
+  } catch (error) {
+    return Promise.resolve({ status: 401, data: error });
+  }
+};

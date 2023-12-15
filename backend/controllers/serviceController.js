@@ -1,3 +1,4 @@
+import { initializeService } from "../loggService/loggService.js";
 import MonitorLog from "../models/MonitorLog.js";
 import Project from "../models/Project.js";
 import Service from "../models/Service.js";
@@ -82,17 +83,19 @@ export const createService = async (req, res) => {
 
     const project = await Project.findById(projectId);
 
-    const service = new Service({
+    const service = await new Service({
       serviceName: serviceName,
       url: url,
       projectId: project._id,
     });
 
-    service.save();
-    project?.services?.push(service._id);
-    project.save();
+    await service.save();
+    await project?.services?.push(service._id);
+    await project.save();
 
-    res.status(200).json({
+    await initializeService(service);
+
+    return res.status(200).json({
       success: true,
       message: "Service created Successfully",
     });
@@ -154,7 +157,7 @@ export const deleteService = async (req, res) => {
 
     project.services = project.services.filter((id) => id != serviceId);
 
-    project.save();
+    await project.save();
 
     res.status(200).json({
       success: true,
