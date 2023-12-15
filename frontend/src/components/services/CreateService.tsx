@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { createService } from "../../redux/apis/userApis";
+import { ToastContainer, toast } from "react-toastify";
 
 function isUrlValid(string: string) {
   try {
@@ -39,19 +40,54 @@ export function CreateServiceDialog(props: CreateProjectInterface) {
 
   const handleCreateService = () => {
     if (isUrlValid(URL)) {
-      createService(serviceName, URL, props?.projectId).then((res) => {
-        if (res.status === 200) {
-          props?.setUpdate(props?.update + 1);
-          handleClose();
-          setServiceName("");
-          setURL("");
-        }
-      });
+      createService(serviceName, URL, props?.projectId)
+        .then((res) => {
+          if (res.status === 200) {
+            props?.setUpdate(props?.update + 1);
+            handleClose();
+            setServiceName("");
+            setURL("");
+            toast.success("Service Created!", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        })
+        .catch(() =>
+          toast.error("Try again later!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+        );
     }
   };
 
   return (
     <React.Fragment>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Button
         onClick={handleClickOpen}
         sx={{

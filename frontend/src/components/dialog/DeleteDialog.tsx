@@ -8,6 +8,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Delete } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import { deleteProject, deleteService } from "../../redux/apis/userApis";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function DeleteDialog(props: {
   projectId: string;
@@ -26,22 +28,84 @@ export default function DeleteDialog(props: {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
+
   const handleDelete = () => {
     if (props?.type === "DELPRO") {
-      deleteProject(props?.projectId).then(() => {
-        console.log("deleted");
-        handleClose();
-      });
+      deleteProject(props?.projectId)
+        .then(() => {
+          console.log("deleted");
+          handleClose();
+          toast.success("Deleted the Project!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          navigate("/Dashboard", { replace: true });
+        })
+        .catch(() =>
+          toast.error("Try again later!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+        );
     } else {
-      deleteService(props?.serviceId, props?.projectId).then(() => {
-        console.log("deleted");
-        handleClose();
-      });
+      deleteService(props?.serviceId, props?.projectId)
+        .then(() => {
+          console.log("deleted");
+          handleClose();
+          toast.success("Deleted Service!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          navigate(`/project/${props?.projectId}`, { replace: true });
+        })
+        .catch(() =>
+          toast.error("Try again later!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+        );
     }
   };
 
   return (
     <React.Fragment>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Tooltip
         title={props?.type === "DELPRO" ? "Delete Project" : "Delete Service"}
       >

@@ -7,6 +7,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import { AuthProvider } from "./auth/AuthContext";
 import ProjectPage from "./components/dashboard/ProjectPage";
 import ServicePage from "./components/dashboard/ServicePage";
+import Settings from "./components/settings/settings";
 
 function App() {
   return (
@@ -39,6 +40,17 @@ function App() {
             <AuthProvider>
               <Layout>
                 <ServicePage />
+              </Layout>
+            </AuthProvider>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <AuthProvider>
+              <Layout>
+                <Settings />
               </Layout>
             </AuthProvider>
           }

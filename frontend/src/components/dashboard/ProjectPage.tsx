@@ -6,6 +6,7 @@ import ServiceCard from "./ServiceCard";
 import { useNavigate } from "react-router-dom";
 import { CreateServiceDialog } from "../services/CreateService";
 import DeleteDialog from "../dialog/DeleteDialog";
+import { ToastContainer } from "react-toastify";
 
 function ProjectPage() {
   const [ProjectName, setProjectName] = useState<string>("");
@@ -51,6 +52,18 @@ function ProjectPage() {
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Box
         onClick={() => navigate(-1)}
         mt={4}

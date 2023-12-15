@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { createProject } from "../../redux/apis/userApis";
+import { ToastContainer, toast } from "react-toastify";
 
 interface CreateProjectInterface {
   update: number;
@@ -27,17 +28,52 @@ export function CreateProjectDialog(props: CreateProjectInterface) {
   };
 
   const handleCreateProject = () => {
-    createProject(projectName).then((res) => {
-      if (res.status === 200) {
-        props?.setUpdate(props?.update + 1);
-        handleClose();
-        setProjectName("");
-      }
-    });
+    createProject(projectName)
+      .then((res) => {
+        if (res.status === 200) {
+          props?.setUpdate(props?.update + 1);
+          handleClose();
+          setProjectName("");
+          toast.success("Project Created Successfully", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+      .catch(() =>
+        toast.error("Try again later!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      );
   };
 
   return (
     <React.Fragment>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Button
         onClick={handleClickOpen}
         sx={{

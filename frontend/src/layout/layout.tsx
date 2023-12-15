@@ -1,3 +1,5 @@
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import {
   Avatar,
   Box,
@@ -163,8 +165,12 @@ const BasicPopover = () => {
     navigate("/");
     dispatch(LogoutUSER());
     localStorage.clear();
-    navigate("/");
     window.location.reload();
+  };
+
+  const handleSettings = () => {
+    handleClose();
+    navigate("/settings");
   };
 
   return (
@@ -251,6 +257,7 @@ const BasicPopover = () => {
               }}
             >
               <Box
+                onClick={handleSettings}
                 sx={{
                   display: "flex",
                   justifyContent: "flex-start",
@@ -321,6 +328,16 @@ export function LoginDialog() {
         dispatch(USER({ data: res.data.data, token: res.data.token }));
         localStorage.setItem("token", res?.data?.token);
         navigate("/dashboard");
+        toast("🦄 Logged in Successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     });
   };
