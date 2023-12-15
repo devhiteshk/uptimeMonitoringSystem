@@ -6,7 +6,7 @@ import { getServiceById } from "../../redux/apis/userApis";
 import { Link } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 import { Stats } from "./charts/MainStats";
-import { DeleteDialog } from "./ProjectPage";
+import DeleteDialog from "../dialog/DeleteDialog";
 
 function ServicePage() {
   const [serviceData, setServiceData] = useState<{
