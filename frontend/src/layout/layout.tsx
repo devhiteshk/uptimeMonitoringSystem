@@ -317,8 +317,8 @@ export function LoginDialog() {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("dev.hitesh.k@gmail.com");
+  const [password, setPassword] = useState("Hitesh@911");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
